@@ -1,0 +1,163 @@
+extends ../../../../common/views/layout
+
+block content
+	.row
+		.col-xs-12.col-sm-7.col-md-7.col-lg-4
+			h1.page-title.txt-color-blueDark
+				i.fa.fa-cog.fa-fw
+				| #{title}
+	.col-sm-12.col-md-12.col-lg-8
+		.well.no-padding
+			form.smart-form(action="/cards/config", method="post", enctype="multipart/form-data")
+				if card
+					//- edit
+					input(type="hidden", name="card[id]", value="")
+					header 基本设置
+					fieldset
+						section
+							label.label	申请需审核
+							.inline-group
+								label.radio
+									input(type="radio", name="card[verify]", checked, value="1")
+									i
+									| 是
+								label.radio
+									input(type="radio", name="card[verify]", value="0")
+									i
+									| 否
+						section
+							label.label	会员卡名
+							label.input
+								input(type="text", value="", name="card[name]")
+						section
+							label.label 会员卡背景
+							.upload_wrap
+								.upload_box
+									.upload_area
+										input.reimal_hide(type="file", name="uploadImg")
+										button.btn.btn-default.btn-sm.btn-reimal-upload-js 上传
+										input(type="hidden", name="changed_cover", value="1")
+								p.js_footer_icon.upload_preview.reimal_block
+									img(src="")
+									a.js_removeCover(href="javascript:void(0);") 删除
+						section
+							label.label	公众号名
+							label.input
+								input(type="text", value="", name="card[pname]")
+						section
+							label.label	一键关注公众号链接
+							label.input
+								input(type="text", name="card[plink]")
+						section
+							label.label	会员称谓
+							label.input
+								input(type="text", name="card[salutation]")
+						section
+							label.label	使用须知
+							label.input
+								script#container(name="card[des]", type="text/plain")
+					header 功能配置
+					fieldset
+						section
+							label.label 启用以下功能
+							.inline-group
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="privilege", checked)
+									i
+									| 会员特权
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="activity", checked)
+									i
+									| 活动
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="prize", checked)
+									i
+									| 奖励
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="sale", checked)
+									i
+									| 销售记录
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="navigate", checked)
+									i
+									| 地址导航
+				else
+					//- new
+					input(type="hidden", name="card[id]", value="")
+					header 基本设置
+					fieldset
+						section
+							label.label	申请需审核
+							.inline-group
+								label.radio
+									input(type="radio", name="card[verify]", checked, value="1")
+									i
+									| 是
+								label.radio
+									input(type="radio", name="card[verify]", value="0")
+									i
+									| 否
+						section
+							label.label	会员卡名
+							label.input
+								input(type="text", value="", name="card[name]")
+						section
+							label.label 会员卡背景
+							.upload_wrap
+								.upload_box
+									.upload_area
+										input.reimal_hide(type="file", name="uploadImg")
+										button.btn.btn-default.btn-sm.btn-reimal-upload-js 上传
+										input(type="hidden", name="changed_cover", value="1")
+								p.js_footer_icon.upload_preview.reimal_block
+									img(src="")
+									a.js_removeCover(href="javascript:void(0);") 删除
+						section
+							label.label	公众号名
+							label.input
+								input(type="text", value="", name="card[pname]")
+						section
+							label.label	一键关注公众号链接
+							label.input
+								input(type="text", name="card[plink]")
+						section
+							label.label	会员称谓
+							label.input
+								input(type="text", name="card[salutation]")
+						section
+							label.label	使用须知
+							label.input
+								script#container(name="card[des]", type="text/plain")
+					header 功能配置
+					fieldset
+						section
+							label.label 启用以下功能
+							.inline-group
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="privilege", checked)
+									i
+									| 会员特权
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="activity", checked)
+									i
+									| 活动
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="prize", checked)
+									i
+									| 奖励
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="sale", checked)
+									i
+									| 销售记录
+								label.checkbox
+									input(type="checkbox", name="card[enables][]", value="navigate", checked)
+									i
+									| 地址导航
+				footer
+					button.btn.btn-primary(type="submit") 确定
+					button.btn.btn-default(type="button", onclick="window.history.back();") 取消
+block scripts
+	script(src="/js/plugin/ueditor/ueditor.config.js")
+	script(src="/js/plugin/ueditor/ueditor.all.min.js")
+	script(src="/js/plugin/ueditor/lang/zh-cn/zh-cn.js")
+	script(src="/js/reimal.js")

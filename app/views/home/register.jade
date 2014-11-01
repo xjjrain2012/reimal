@@ -1,0 +1,62 @@
+extends ../../../common/views/base
+
+block styles
+	link(rel="stylesheet", type="text/css", media="screen", href="/css/reimal.css")
+block body
+	body#extr-page.animated.fadeInDown
+		header#header
+			div#logo-group
+				span#logo
+					img(src="/img/logo.png", alt="SmartAdmin")
+			span#extr-page-header-space
+				span.hidden-mobile 已经注册?
+				a.btn.btn-danger(href="/users/login") 登录
+		div#main(role="main")
+			div#content.container
+				div.row
+					div.col-xs-12.col-sm-12.col-md-4.col-lg-4.col-md-offset-4.col-lg-offset-4
+						div.well.no-padding
+							form#smart-form-register.smart-form.client-form(name="registerForm", action="/users/register", method="post")
+								header 注册新账号
+								fieldset
+									section
+										label.input
+											i.icon-append.fa.fa-envelope
+											input(name="user[email]", type="email", placeholder="邮箱地址")
+											b.tooltip.tooltip-top-right 
+												i.fa.fa-envelope.txt-color-teal
+												| 用于验证和登录账户
+									section
+										label.input
+											i.icon-append.fa.fa-user
+											input(name="user[name]" type="text", placeholder="企业名称")
+											b.tooltip.tooltip-top-right 
+												i.fa.fa-user.txt-color-teal
+												| 请输入企业名称
+									section
+										label.input
+											i.icon-append.fa.fa-mobile
+											input(name="user[tel]" type="text", placeholder="手机号")
+											b.tooltip.tooltip-top-right 
+												i.fa.fa-mobile.txt-color-teal
+												| 请输入手机号
+									section
+										label.input
+											i.icon-append.fa.fa-lock
+											input#password(name="user[password]", type="password", placeholder="密码")
+											b.tooltip.tooltip-top-right 
+												i.fa.fa-lock.txt-color-teal
+												| 账户登录密码
+									section
+										label.input
+											i.icon-append.fa.fa-lock
+											input#password(name="user[passwordConfirm]", type="password", placeholder="确认密码")
+											b.tooltip.tooltip-top-right 
+												i.fa.fa-lock.txt-color-teal
+												| 确认账户登录密码
+									
+								footer
+									button.btn.btn-primary(type="submit") 注册
+								div.message
+									i.fa.fa-check
+									p 感谢您的注册!

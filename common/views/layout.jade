@@ -1,0 +1,90 @@
+extends base
+
+block body
+	body.smart-style-0.fixed-header.fixed-navigation.fixed-ribbon
+		header#header
+			#logo-group
+				span#logo
+					img(src="/img/logo.png", alt="微商宝")
+			.pull-right
+				if user
+					span.login_info #{user.name} &nbsp;&nbsp;
+						a(href="/users/logout")
+							i.fa.fa-power-off
+							| 退出
+				else
+					span.login_info 
+						a(href="/users/logout") 注册
+					span.login_info &nbsp; | &nbsp;
+					span.login_info 
+						a(href="/users/logout") 登录
+		div
+			aside#left-panel
+				.login-inf
+				nav
+					ul
+						li
+							a(href="/dashboard" title="仪表盘")
+								i.fa.fa-lg.fa-fw.fa-user
+								span.menu-item-parent 仪表盘
+						li
+							a(href="/Wechat/Account" title="账户管理")
+								i.fa.fa-lg.fa-fw.fa-user
+								span.menu-item-parent 账户管理
+						li
+							a(href="/Wechat/Account" title="公众号管理")
+								i.fa.fa-lg.fa-fw.fa-weixin
+								span.menu-item-parent 公众号管理
+						li
+							a(href="/Wechat/Account" title="自定义菜单")
+								i.fa.fa-lg.fa-fw.fa-list
+								span.menu-item-parent 自定义菜单
+						li
+							a(href="#" title="会员卡")
+								i.fa.fa-lg.fa-fw.fa-credit-card
+								span.menu-item-parent 会员卡
+							ul
+								li
+									a(href="/cards/config")
+										i.fa.fa-fw.fa-user
+										| 会员卡配置
+								li
+									a(href="/cards/mangement")
+										i.fa.fa-fw.fa-user
+										| 会员管理
+								li
+									a(href="/cards/permission")
+										i.fa.fa-fw.fa-user
+										| 会员权限管理
+								li
+									a(href="/cards/activity")
+										i.fa.fa-fw.fa-calendar
+										| 活动管理
+								li
+									a(href="/cards/award")
+										i.fa.fa-fw.fa-gift
+										| 奖励管理
+								li
+									a(href="/cards/sale")
+										i.fa.fa-fw.fa-gift
+										| 销售记录
+						li
+							a(href="#" title="会员卡")
+								i.fa.fa-lg.fa-fw.fa-map-marker
+								span.menu-item-parent 门店系统
+							ul
+								li
+									a(href="/cards/config")
+										i.fa.fa-fw.fa-map-marker
+										| 门店配置
+								li
+									a(href="/cards/mangement")
+										i.fa.fa-fw.fa-calendar
+										| 门店管理
+				span.minifyme(data-action="minifyMenu")
+					i.fa.fa-arrow-circle-left.hit
+			#main(role="main")
+				#content
+					block content
+		include basefoot.jade
+		include basejs.jade

@@ -1,0 +1,34 @@
+extends ../../../common/views/base
+
+block styles
+	link(rel="stylesheet", type="text/css", media="screen", href="/css/reimal.css")
+block body
+	body#extr-page.animated.fadeInDown
+		header#header
+			div#logo-group
+				span#logo
+					img(src="/img/logo.png", alt="SmartAdmin")
+			span#extr-page-header-space
+				span.hidden-mobile 还没有账户?
+				a.btn.btn-danger(href="/users/register") 注册新账户
+		div#main(role="main")
+			div#content.container
+				div.row
+					div.col-xs-12.col-sm-12.col-md-4.col-lg-4.col-md-offset-4.col-lg-offset-4
+						div.well.no-padding
+							form#login-form.smart-form.client-form(name="loginForm", action="/users/login", method="post")
+								header 忘记密码
+								fieldset
+									section
+										label.label 输入您的邮箱地址
+										label.input
+											i.icon-append.fa.fa-user
+											input(name="user[email]", type="email", placeholder="邮箱")
+											b.tooltip.tooltip-top-right 
+												i.fa.fa-user.txt-color-teal
+												| 请输入邮箱地址重置密码
+										.note
+											a(href="/users/login") 想起密码？
+									
+								footer
+									button.btn.btn-primary(type="submit") 重置密码
