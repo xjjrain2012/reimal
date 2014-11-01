@@ -2,14 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var CardConfig = new Schema({
 	cid: String,
-	verify: Boolean,
+	verify: Number,
 	name: String,
 	bg: String,
 	pname: String,
 	plink: String,
 	salutation: String,
 	des: String,
-	enables: Array,
+	enables: Schema.Types.Mixed,
 	meta: {
 		createAt: {
 			type: Date,

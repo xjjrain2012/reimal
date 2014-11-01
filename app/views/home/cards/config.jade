@@ -11,24 +11,34 @@ block content
 			form.smart-form(action="/cards/config", method="post", enctype="multipart/form-data")
 				if card
 					//- edit
-					input(type="hidden", name="card[id]", value="")
+					input(type="hidden", name="card[id]", value="#{card._id}")
 					header 基本设置
 					fieldset
 						section
 							label.label	申请需审核
 							.inline-group
-								label.radio
-									input(type="radio", name="card[verify]", checked, value="1")
-									i
-									| 是
-								label.radio
-									input(type="radio", name="card[verify]", value="0")
-									i
-									| 否
+								if card.verify == 1
+									label.radio
+										input(type="radio", name="card[verify]", checked, value="1")
+										i
+										| 是
+									label.radio
+										input(type="radio", name="card[verify]", value="0")
+										i
+										| 否
+								else 
+									label.radio
+										input(type="radio", name="card[verify]", value="1")
+										i
+										| 是
+									label.radio
+										input(type="radio", name="card[verify]", checked, value="0")
+										i
+										| 否
 						section
 							label.label	会员卡名
 							label.input
-								input(type="text", value="", name="card[name]")
+								input(type="text", value="#{card.name}", name="card[name]")
 						section
 							label.label 会员卡背景
 							.upload_wrap
@@ -38,20 +48,20 @@ block content
 										button.btn.btn-default.btn-sm.btn-reimal-upload-js 上传
 										input(type="hidden", name="changed_cover", value="1")
 								p.js_footer_icon.upload_preview.reimal_block
-									img(src="")
+									img(src="/uploads/#{card.bg}")
 									a.js_removeCover(href="javascript:void(0);") 删除
 						section
 							label.label	公众号名
 							label.input
-								input(type="text", value="", name="card[pname]")
+								input(type="text", value="#{card.pname}", name="card[pname]")
 						section
 							label.label	一键关注公众号链接
 							label.input
-								input(type="text", name="card[plink]")
+								input(type="text", value="#{card.plink}", name="card[plink]")
 						section
 							label.label	会员称谓
 							label.input
-								input(type="text", name="card[salutation]")
+								input(type="text", value="#{card.salutation}", name="card[salutation]")
 						section
 							label.label	使用须知
 							label.input
@@ -62,23 +72,38 @@ block content
 							label.label 启用以下功能
 							.inline-group
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="privilege", checked)
+									if card.enables.privilege
+										input(type="checkbox", name="card[enables][privilege]", value="1", checked)
+									else 
+										input(type="checkbox", name="card[enables][privilege]", value="1")
 									i
 									| 会员特权
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="activity", checked)
+									if card.enables.activity
+										input(type="checkbox", name="card[enables][activity]", value="1", checked)
+									else
+										input(type="checkbox", name="card[enables][activity]", value="1")
 									i
 									| 活动
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="prize", checked)
+									if card.enables.prize
+										input(type="checkbox", name="card[enables][prize]", value="1", checked)
+									else
+										input(type="checkbox", name="card[enables][prize]", value="1")
 									i
 									| 奖励
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="sale", checked)
+									if card.enables.sale
+										input(type="checkbox", name="card[enables][sale]", value="1", checked)
+									else
+										input(type="checkbox", name="card[enables][sale]", value="1")
 									i
 									| 销售记录
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="navigate", checked)
+									if card.enables.navigate
+										input(type="checkbox", name="card[enables][navigate]", value="1", checked)
+									else 
+										input(type="checkbox", name="card[enables][navigate]", value="1")
 									i
 									| 地址导航
 				else
@@ -134,23 +159,23 @@ block content
 							label.label 启用以下功能
 							.inline-group
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="privilege", checked)
+									input(type="checkbox", name="card[enables][privilege]", value="1", checked)
 									i
 									| 会员特权
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="activity", checked)
+									input(type="checkbox", name="card[enables][activity]", value="1", checked)
 									i
 									| 活动
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="prize", checked)
+									input(type="checkbox", name="card[enables][prize]", value="1", checked)
 									i
 									| 奖励
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="sale", checked)
+									input(type="checkbox", name="card[enables][sale]", value="1", checked)
 									i
 									| 销售记录
 								label.checkbox
-									input(type="checkbox", name="card[enables][]", value="navigate", checked)
+									input(type="checkbox", name="card[enables][navigate]", value="1", checked)
 									i
 									| 地址导航
 				footer
@@ -160,4 +185,18 @@ block scripts
 	script(src="/js/plugin/ueditor/ueditor.config.js")
 	script(src="/js/plugin/ueditor/ueditor.all.min.js")
 	script(src="/js/plugin/ueditor/lang/zh-cn/zh-cn.js")
+	script(src="/js/underscore/underscore-min.js")
 	script(src="/js/reimal.js")
+	if card
+		script.
+			$(function() {
+				var editor = UE.getEditor('container');
+				editor.ready(function() {
+				    editor.setContent(_.unescape('#{card.des}'));
+				});
+			});
+	else
+		script.
+			$(function() {
+				var editor = UE.getEditor('container');
+			});

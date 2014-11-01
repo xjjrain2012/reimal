@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 exports.loginRequired = function(req, res, next) {
 	if(!req.session.user) {
-		res.redirect('/users/login');
+		return res.redirect('/users/login');
 	}
 	next();
 };
@@ -10,7 +10,7 @@ exports.loginRequired = function(req, res, next) {
 exports.adminRequired = function(req, res, next) {
 	var user = req.session.user;
 	if(user.role <= 50) {
-		res.redirect('/users/login');
+		return res.redirect('/users/login');
 	}
 	next();
 };
@@ -27,7 +27,7 @@ exports.uploadImg = function(req, res, next) {
 			var newPath = path.join(__dirname, '../../', '/public/uploads/' + img);
 
 			fs.writeFile(newPath, data, function(err) {
-				req.uploadimg = newPath;
+				req.uploadimg = img;
 				next();
 			});
 		});
