@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 //app.use(express.multipart());
-app.use(session({
+/*app.use(session({
     secret: 'reimal',
     resave: true,
     saveUninitialized: true,
@@ -37,13 +37,13 @@ app.use(session({
         db: 'reimal',
         collection: 'sessions'
     })
-}));
+}));*/
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     app.locals.user = req.session.user;
     console.log(req.session.user);
     next();
-});
+});*/
 
 app.use('/', routes);
 app.use('/users', users);
@@ -80,5 +80,27 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var mongoStore = new mongoStore({
+    url: dbUrl,
+    db: 'reimal',
+    collection: 'sessions'
+}, function(e) {
+    app.use(session({
+        secret: 'reimal',
+        resave: true,
+        saveUninitialized: true,
+        store: mongoStore
+    }));
+    app.use(function(req, res, next) {
+        app.locals.user = req.session.user;
+        console.log(req.session.user);
+        next();
+    });
+    app.set('port', process.env.PORT || 3000);
 
-module.exports = app;
+    var server = app.listen(app.get('port'), function() {
+      debug('Express server listening on port ' + server.address().port);
+    });
+});
+
+//module.exports = app;
