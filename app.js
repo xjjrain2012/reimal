@@ -88,6 +88,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-//exports the application
+
 
 module.exports = app;
