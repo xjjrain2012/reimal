@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var mongoStore = require('connect-mongo')(session)
+var mongoStore = require('connect-mongo')(session);
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -87,6 +88,7 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
 
 
 
