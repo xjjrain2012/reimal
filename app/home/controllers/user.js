@@ -10,7 +10,7 @@ exports.postLogin = function(req, res) {
 	User.findByKey('email', email, function(err, user) {
 		if(err) console.log(err);
 
-		if(!user) res.redirect('/users/register');
+		if(!user) return res.redirect('/users/register');
 
 		user.comparePwd(pwd, function(err, isMatch) {
 			if(err) console.log(err);
